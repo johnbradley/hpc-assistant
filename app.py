@@ -22,7 +22,7 @@ if os.path.exists(SETTINGS_PATH):
 
 def run_cmd(cmd):
     """Run a command and return the output."""
-    full_cmd = SLURM_BASE_CMD + " " + cmd
+    full_cmd = SLURM_BASE_CMD + " -c " + cmd
     print(f"Running command: {full_cmd}")
     result = subprocess.check_output(full_cmd, shell=True, text=True)
     print("Command done")
@@ -54,7 +54,7 @@ def read_historical_jobs():
     df = df[['JobID', 'JobName', 'Partition', 'Account', 'AllocCPUS', 'State', 'ExitCode']]
     return df
 
-with gr.Blocks(title="Cluster Helper") as demo:
+with gr.Blocks(title="Cluster Helper", fill_width=True) as demo:
         with gr.Tab("Running Jobs"):
             with gr.Row():
                 gr.Markdown("# Running Jobs")
@@ -80,5 +80,10 @@ with gr.Blocks(title="Cluster Helper") as demo:
             refresh_cluster.click(fn=read_cluster_data, outputs=cluster_output)
 
 
+
+
 if __name__ == "__main__":
-    demo.launch()
+    port = int(os.environ.get("GRADIO_SERVER_PORT"))
+    host = os.environ.get("GRADIO_HOST")
+    root_path = f"/node/{host}/{port}"
+    demo.launch(server_port=port, server_name="0.0.0.0", root_path=root_path)

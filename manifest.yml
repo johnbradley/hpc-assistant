@@ -1,0 +1,7 @@
+---
+name: HPC Assistant
+category: Interactive Apps
+subcategory: Servers
+role: batch_connect
+description: |
+  This app helps users manage their RCC jobs and answer questions
