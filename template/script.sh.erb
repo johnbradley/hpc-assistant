@@ -11,7 +11,8 @@ cd "${HOME}"
 #
 
 . "/software/miniforge3/etc/profile.d/conda.sh"
-conda activate /home/jpb67/.conda/envs/gradio
+#conda activate /home/jpb67/.conda/envs/gradio
+conda activate $APPCONDA
 
 # Benchmark info
 echo "TIMING - Starting jupyter at: $(date)"
@@ -26,5 +27,4 @@ echo $GRADIO_HOST
 source /etc/profile.d/modules.sh
 module load slurm
 env
-cd /home/jpb67/ondemand/dev/hpc-assistant
-python app.py
+python $APPDIR/app.py
